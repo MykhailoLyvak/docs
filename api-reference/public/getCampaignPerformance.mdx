@@ -1,0 +1,107 @@
+---
+title: 'Campaign Performance'
+api: 'GET /api/public/performance/?date_from={date_from}&date_to={date_to}&advertiser_id={advertiser_id}'
+---
+
+<Note>
+This endpoint is protected and requires an agency API key for access.
+</Note>
+
+<RequestExample>
+```bash Request
+  curl --request GET \
+    --url http://gc-api-prod.us-east-1.elasticbeanstalk.com/api/public/performance/?date_from=2025-01-01&date_to=2025-1-03&advertiser_id=544
+```
+</RequestExample>
+
+<CardGroup>
+    <Card title="Method" icon="puzzle-piece">
+        `GET`
+    </Card>
+    <Card title="Endpoint" icon="link">
+        `/api/public/performance/`
+    </Card>
+</CardGroup>
+
+## Headers
+
+<ResponseField name="X-Api-Key" type="string" required>
+  The agency's API key for authorization ask admin to create ot for your usage
+</ResponseField>
+
+## Parms
+
+<ParamField path="date_from" type="string" example="2025-01-01" required>
+  Date staring from response will be generated <code>?date_from=2025-01-01</code> 
+</ParamField>
+<ParamField path="date_to" type="string" example="2025-01-01" required>
+  Date ending with response will be generated <code>?date_to=2025-01-03</code> 
+</ParamField>
+<ParamField path="advertiser_id" type="number" example="544" required>
+  The unique identifier for the adveticer <code>?advertiser_id=544</code> 
+</ParamField>
+
+## Responses
+
+<Tabs>
+<Tab title="200 OK">
+```json
+{
+  "data": [
+    {
+      "...": "..."
+    }
+  ],
+  "pagination": {
+    "total_records": 100,
+    "total_pages": 10
+  },
+  "parameters": {
+    "date_from": "2023-01-01",
+    "date_to": "2023-01-03",
+    "advertiser_id": 544
+  }
+}
+```
+<ResponseField name="data" type="array">
+  An array of campaign performance objects.
+</ResponseField>
+<ResponseField name="pagination" type="object">
+  An object containing pagination details.
+  <Expandable title="object">
+  <ResponseField name="total_records" type="integer">
+    The total number of records found.
+  </ResponseField>
+  <ResponseField name="total_pages" type="integer">
+    The total number of pages.
+  </ResponseField>
+  </Expandable>
+</ResponseField>
+<ResponseField name="parameters" type="object">
+  An object containing the query parameters used for the request.
+</ResponseField>
+
+</Tab>
+<Tab title="400 Bad Request">
+Returned if required query parameters like `date_from` or `date_to` are missing.
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Missing required parameters",
+    "details": {
+      "missing_fields": ["date_from", "date_to"]
+    },
+    "request_id": "..."
+  }
+}
+```
+</Tab>
+<Tab title="401 Unauthorized">
+Returned if the `X-Api-Key` header is missing or invalid.
+</Tab>
+<Tab title="500 Internal Server Error">
+Returned if there is an unexpected error on the server while fetching data.
+</Tab>
+</Tabs>

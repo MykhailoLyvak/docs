@@ -8,6 +8,11 @@
     "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
+  "api": {
+    "mdx": {
+      "server": "http://gc-api-prod.us-east-1.elasticbeanstalk.com"
+    }
+  },
   "navigation": {
     "tabs": [
       {
@@ -57,12 +62,10 @@
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Public endpoints",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/public/getHintApiKey",
+              "api-reference/public/getCampaignPerformance"
             ]
           }
         ]
