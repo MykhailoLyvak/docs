@@ -1,0 +1,57 @@
+---
+title: 'Public API-KEY'
+api: 'GET /api/public/keys/hint?agency_id={agency_id}'
+---
+
+<Note>
+  An <code>X-API-KEY</code> is required to authenticate requests to nearly all public endpoints.  
+  This endpoint provides the key.
+</Note>
+
+<CardGroup>
+  <Card title="Method" icon="puzzle-piece">
+    `GET`
+  </Card>
+  <Card title="Endpoint" icon="link">
+    `api/public/keys/hint`
+  </Card>
+</CardGroup>
+
+
+<RequestExample>
+```bash Request
+  curl --request GET \
+    --url http://gc-api-prod.us-east-1.elasticbeanstalk.com/api/public/keys/hint/?agency_id=544
+```
+</RequestExample>
+
+
+<ParamField path="agency_id" type="number" example="544" required>
+  The unique identifier for the agency <code>?agency_id=544</code> 
+</ParamField>
+
+## Responses
+<Tabs>
+  <Tab title="200 OK">
+  ```json
+  {
+    "key_hint": "aY5Q" // last 4 characters
+  }
+  ```
+  </Tab>
+  <Tab title="404 Not Found">
+    ```json
+    {
+      "error": {
+          "code": "NOT_FOUND",
+          "message": "Agency not found",
+          "details": {
+              "field": "agency_id",
+              "value": "544"
+          },
+          "request_id": "4b7bd3b3-21fa-47ae-8369-78e658408a51"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
